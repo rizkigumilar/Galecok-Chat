@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { StatusBar, View, Text, TouchableHighlight, StyleSheet, AsyncStorage, Alert, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Fab, Icon } from 'native-base'
 import { Auth, Database } from '../config';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import GetLocation from 'react-native-get-location';
 
 
 export default class Home extends Component {
@@ -10,9 +12,38 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            mapRegion: null,
+            latitude: 0,
+            longitude: 0,
             users: []
         };
         this.user()
+    }
+    getCurrentPosition() {
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+            .then(location => {
+                console.warn(location.latitude);
+
+                let region = {
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                    latitudeDelta: 0.00922 * 1.5,
+                    longitudeDelta: 0.00421 * 1.5
+                }
+
+                this.setState({
+                    mapRegion: region,
+                    latitude: location.latitude,
+                    longitude: location.longitude
+                })
+            })
+            .catch(error => {
+                const { code, message } = error;
+                console.warn(code, message);
+            })
     }
 
     user = async () => {
@@ -37,8 +68,11 @@ export default class Home extends Component {
                         provider={PROVIDER_GOOGLE}
                         showsMyLocationButton={true}
                         showsIndoorLevelPicker={true}
-                        // customMapStyle={styles.map}
+                        showsUserLocation={true}
+                        zoomControlEnabled={true}
+                        showsTraffic={true}
                         style={{ flex: 1, height: 650, width: 400 }}
+                        region={this.state.mapRegion}
                         initialRegion={{
                             latitude: -7.7586432,
                             longitude: 110.3781322,
@@ -56,33 +90,24 @@ export default class Home extends Component {
                                     longitude: item.longitude
                                 }}
                                 title={item.name}
-                                description={item.email}
+                                description={`${item.latitude} / ${item.longitude}`}
                             ><Image
                                     source={{ uri: item.photo }}
-                                    style={{ height: 30, width: 30 }} /></Marker>)
+                                    style={{ width: 40, height: 40, borderRadius: 100 / 2 }} /></Marker>)
 
                         })}
                     </MapView>
+                    <Fab
+                        position="bottomRight"
+                        onPress={() => this.getCurrentPosition()}
+                        style={{ marginVertical: 50, backgroundColor: 'white' }}
+
+                    >
+                        <Icon name="locate" type="Ionicons" style={{ color: 'steelblue' }} />
+                    </Fab>
                 </View>
             </ScrollView>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    buttonContainer: {
-        height: 45,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 30,
-        width: 250,
-        borderRadius: 30,
-    },
-    loginButton: {
-        backgroundColor: "#00b5ec",
-    },
-    loginText: {
-        color: 'white',
-    },
-})

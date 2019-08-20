@@ -44,7 +44,7 @@ class Login extends Component {
                     Alert.alert(
                         'Login',
                         'Login Success', [
-                            { text: 'OK', onPress: () => this.props.navigation.navigate('Home') }
+                            { text: 'OK', onPress: () => this.props.navigation.navigate('Maps') }
                         ]
                     )
                 })

@@ -68,12 +68,6 @@ class Register extends Component {
                                 password: '',
                             });
                         })
-                    let data = {
-                        name: this.state.name,
-                        status: 'Ada',
-                        email: this.state.email,
-                        photo: 'https://i.imgur.com/zpjUVPT.png'
-                    }
                     Alert.alert(
                         'Register',
                         'Register Success', [
@@ -102,7 +96,7 @@ class Register extends Component {
                         placeholder="Email"
                         keyboardType="email-address"
                         underlineColorAndroid='transparent'
-                        onChangeText={val => this.setState({ 'email': val })} />
+                        onChangeText={(email) => this.setState({ email })} />
                 </View>
 
                 <View style={styles.inputContainer}>
@@ -111,7 +105,7 @@ class Register extends Component {
                         placeholder="name"
                         keyboardType="default"
                         underlineColorAndroid='transparent'
-                        onChangeText={val => this.setState({ 'name': val })} />
+                        onChangeText={(name) => this.setState({ name })} />
                 </View>
 
 
@@ -122,7 +116,7 @@ class Register extends Component {
                         placeholder="Password"
                         secureTextEntry={true}
                         underlineColorAndroid='transparent'
-                        onChangeText={val => this.setState({ 'password': val })} />
+                        onChangeText={(password) => this.setState({ password })} />
                 </View>
 
                 <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.add}>

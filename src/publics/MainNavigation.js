@@ -13,20 +13,27 @@ import Login from '../screens/Login';
 import Register from '../screens/Register'
 import AuthLoading from '../screens/Splash';
 import MenuBar from '../components/MenuBar';
+import ChatRoom from '../screens/ChatRoom';
 
 const HomeStack = createStackNavigator(
     {
-        Home: { screen: HomeScreen },
+        Home: {
+            screen: HomeScreen,
+            navigationOptions: {
+                header: null
+            }
+        },
+        Chat: {
+            screen: ChatRoom,
+            navigationOptions: {
+                header: null
+            }
+        }
     },
     {
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: '#05A0E4',
-            },
-            headerTintColor: 'white',
-            headerTitle: 'Galecok',
-            headerRight: <MenuBar />
-        },
+        navigationOptions: ({ navigation }) => ({
+            tabBarVisible: navigation.state.routes[navigation.state.index].routeName === 'Chat' ? false : true
+        }),
     }
 );
 
@@ -40,7 +47,7 @@ const MapsStack = createStackNavigator(
                 backgroundColor: '#05A0E4',
             },
             headerTintColor: 'white',
-            title: 'Maps',
+            title: 'Galecok Apps',
         },
     }
 );
@@ -49,7 +56,7 @@ const MapsStack = createStackNavigator(
 const AppStack = createBottomTabNavigator(
     {
         Home: { screen: HomeStack },
-        Maps: { screen: MapsStack }
+        Maps: { screen: MapsStack },
     },
     {
         defaultNavigationOptions: ({ navigation }) => ({
