@@ -28,17 +28,12 @@ class Login extends Component {
         if (this.state.email == '' && this.state.password == '') {
             alert('Harap mengisi Semua Form!')
         } else {
-            Database.ref('/user').once('value', (result) => {
+            Database.ref('/user').orderByChild('email').equalTo(this.state.email).once('value', (result) => {
                 let data = result.val();
                 if (data !== null) {
                     let user = Object.values(data);
-                    console.log(user)
-
-                    user.map((data) => {
-                        if (data.email == this.state.email) {
-                            AsyncStorage.setItem('user', data.email);
-                        }
-                    })
+                    console.log(user);
+                    AsyncStorage.setItem('user', user[0].email);
                 }
             });
 

@@ -9,6 +9,7 @@ import {
     Alert
 } from 'react-native';
 import { Database, Auth } from '../config';
+import GetLocation from 'react-native-get-location';
 class Register extends Component {
 
     constructor(props) {
@@ -16,8 +17,31 @@ class Register extends Component {
         this.state = {
             name: '',
             email: '',
-            password: ''
+            password: '',
+            latitude: null,
+            longitude: null
         };
+    }
+    componentDidMount = async () => {
+        await this.currentPosition()
+    }
+    currentPosition() {
+        console.log(GetLocation.getCurrentPosition());
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000
+        })
+            .then(location => {
+                console.log(location)
+                this.setState({
+                    latitude: location.latitude,
+                    longitude: location.longitude
+                })
+            })
+            .catch(error => {
+                const { code, message } = error
+                console.log(error);
+            })
     }
     add = () => {
         if (this.state.fullName == '' && this.state.email == '' && this.state.password == '') {
@@ -29,9 +53,12 @@ class Register extends Component {
                     console.log(response)
                     Database.ref('/user/' + response.user.uid).set({
                         name: this.state.name,
-                        status: 'Ada',
+                        status: 'Offline',
                         email: this.state.email,
-                        photo: 'https://i.imgur.com/zpjUVPT.png'
+                        photo: 'https://i.imgur.com/zpjUVPT.png',
+                        latitude: this.state.latitude,
+                        longitude: this.state.longitude,
+                        id: response.user.uid
                     })
                         .catch(error => {
                             alert(error.message)
