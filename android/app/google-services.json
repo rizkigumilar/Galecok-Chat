@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "594695007468",
+    "firebase_url": "https://galecokapps.firebaseio.com",
+    "project_id": "galecokapps",
+    "storage_bucket": "galecokapps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594695007468:android:e4803ce99bb89fb1",
+        "android_client_info": {
+          "package_name": "com.galecok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594695007468-aussbblfmv1oos7c94i0rjpm2iv1jrir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-YjoamoRnnC7MacVyc47M6NWK99crMOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594695007468-aussbblfmv1oos7c94i0rjpm2iv1jrir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
