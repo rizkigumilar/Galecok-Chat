@@ -14,6 +14,7 @@ import Register from '../screens/Register'
 import AuthLoading from '../screens/Splash';
 import MenuBar from '../components/MenuBar';
 import ChatRoom from '../screens/ChatRoom';
+import Profile from '../screens/Profile'
 
 const HomeStack = createStackNavigator(
     {
@@ -28,6 +29,9 @@ const HomeStack = createStackNavigator(
             navigationOptions: {
                 header: null
             }
+        },
+        Profile: {
+            screen: Profile
         }
     },
     {

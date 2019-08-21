@@ -10,7 +10,7 @@ import {
     Image,
     Alert,
 } from 'react-native';
-import Logo from '../assets/logo.png'
+import Logo from '../assets/logo-trans.png'
 import { ScrollView } from 'react-native-gesture-handler';
 import { Database, Auth } from '../config';
 
@@ -33,7 +33,9 @@ class Login extends Component {
                 if (data !== null) {
                     let user = Object.values(data);
                     console.log(user);
-                    AsyncStorage.setItem('user', user[0].email);
+                    AsyncStorage.setItem('user', user[0].email)
+                    AsyncStorage.setItem('name', user[0].name)
+                    AsyncStorage.setItem('photo', user[0].photo)
                 }
             });
 
@@ -123,11 +125,14 @@ const styles = StyleSheet.create({
         height: 45,
         marginBottom: 20,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        bottom: 60
     },
     title: {
         fontSize: 40,
-        marginBottom: 30
+        marginBottom: 30,
+        marginLeft: 70,
+        bottom: 60
     },
     inputs: {
         height: 45,
@@ -149,6 +154,7 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         width: 250,
         borderRadius: 30,
+        bottom: 60
     },
     loginButton: {
         backgroundColor: "#00b5ec",

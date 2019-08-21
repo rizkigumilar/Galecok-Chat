@@ -21,7 +21,7 @@ class Splash extends Component {
         return (
             <View>
                 <View style={styles.container}>
-                    <Image source={require('../assets/logo.png')} style={styles.imagess} />
+                    <Image source={require('../assets/logo-trans.png')} style={styles.imagess} />
                     <View >
                         <ActivityIndicator size="large" color="#00b5ec" style={styles.auth} />
                         <StatusBar barStyle="default" />

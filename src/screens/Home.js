@@ -73,7 +73,7 @@ export default class ChatList extends Component {
 
 
     render() {
-        // console.log(Auth);
+        console.log(Auth);
         return (
             <Container>
                 <Header style={{ backgroundColor: '#05A0E4' }}>
@@ -106,7 +106,7 @@ export default class ChatList extends Component {
                         ref={this.setMenuRef}
                         button={<Text onPress={this.showMenu}><Entypo name='menu' size={25} color={'white'} /></Text>}
                     >
-
+                        <MenuItem onPress={() => this.props.navigation.navigate('Profile')}>Profile</MenuItem>
                         <MenuItem onPress={this.del}>Logout</MenuItem>
                     </Menu>
                 </View>
