@@ -23,27 +23,37 @@ class Register extends Component {
         };
     }
     componentDidMount = async () => {
-        await this.currentPosition()
+        await this.getCurrentPosition()
     }
-    currentPosition() {
-        console.log(GetLocation.getCurrentPosition());
+
+    getCurrentPosition() {
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
-            timeout: 15000
+            timeout: 15000,
         })
             .then(location => {
-                console.log(location)
+                console.warn(location.latitude);
+
+                let region = {
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                    latitudeDelta: 0.00922 * 1.5,
+                    longitudeDelta: 0.00421 * 1.5
+                }
+
                 this.setState({
+                    mapRegion: region,
                     latitude: location.latitude,
                     longitude: location.longitude
                 })
             })
             .catch(error => {
-                const { code, message } = error
-                console.log(error);
+                const { code, message } = error;
+                console.warn(code, message);
             })
     }
-    add = () => {
+
+    Register = () => {
         if (this.state.fullName == '' && this.state.email == '' && this.state.password == '') {
             alert('Harap mengisi Semua Form!')
         }
@@ -119,7 +129,7 @@ class Register extends Component {
                         onChangeText={(password) => this.setState({ password })} />
                 </View>
 
-                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.add}>
+                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.Register}>
                     <Text style={styles.loginText}>Register</Text>
                 </TouchableHighlight>
 

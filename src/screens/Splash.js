@@ -4,7 +4,8 @@ import {
     AsyncStorage,
     StatusBar,
     StyleSheet,
-    View, Image
+    View,
+    Image
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 class Splash extends Component {
@@ -20,6 +21,7 @@ class Splash extends Component {
     render() {
         return (
             <View>
+                <Image source={require('../assets/bottom.png')} resizeMode="stretch" style={styles.imgBackground} />
                 <View style={styles.container}>
                     <Image source={require('../assets/logo-trans.png')} style={styles.imagess} />
                     <View >
@@ -49,5 +51,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         marginTop: '124%',
         color: 'black',
+    },
+    imgBackground: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        opacity: 1
     }
 })

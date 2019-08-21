@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, StatusBar, Image, AsyncStorage, ImageBackground, FlatList, Dimensions } from 'react-native';
+import { Platform, StyleSheet, View, StatusBar, Image, AsyncStorage, FlatList, Dimensions } from 'react-native';
 import { Container, Content, Header, Right, Body, Title, Subtitle, Icon, Item, Input, Button, Text, Footer, Left } from 'native-base';
 import moment from 'moment';
 
@@ -79,6 +79,7 @@ export default class ChatRoom extends Component {
 
         return (
             <Container>
+                <Image source={require('../assets/biru.jpg')} resizeMode="stretch" style={styles.imgBackground} />
                 <Header style={{ backgroundColor: '#05A0E4' }}>
                     <Left>
                         <Button
@@ -137,5 +138,11 @@ const styles = StyleSheet.create({
     iconStyle: {
         color: 'white',
         marginHorizontal: 10
+    },
+    imgBackground: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        opacity: 1
     }
 })

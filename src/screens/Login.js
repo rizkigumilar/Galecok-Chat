@@ -13,6 +13,7 @@ import {
 import Logo from '../assets/logo-trans.png'
 import { ScrollView } from 'react-native-gesture-handler';
 import { Database, Auth } from '../config';
+import GetLocation from 'react-native-get-location'
 
 class Login extends Component {
     constructor(props) {
@@ -20,8 +21,31 @@ class Login extends Component {
         this.state = {
             user: [],
             email: '',
-            password: ''
+            password: '',
+            latitude: null,
+            longitude: null,
         };
+    }
+
+    componentDidMount = async () => {
+        await this.getCurrentPosition()
+    }
+
+    getCurrentPosition() {
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+            .then(location => {
+                this.setState({
+                    latitude: location.latitude,
+                    longitude: location.longitude
+                })
+            })
+            .catch(error => {
+                const { code, message } = error;
+                console.warn(code, message);
+            })
     }
 
     log = async () => {

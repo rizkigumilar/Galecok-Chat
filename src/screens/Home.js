@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, StatusBar, FlatList, ActivityIndicator, Alert, Text, AsyncStorage } from 'react-native';
+import { View, StatusBar, FlatList, ActivityIndicator, Alert, Text, AsyncStorage, StyleSheet, Image } from 'react-native';
 import { Container, Content, Body, ListItem, Left, Thumbnail, Header, Title } from 'native-base';
-import Menu, { MenuItem } from 'react-native-material-menu';
-import Entypo from 'react-native-vector-icons/dist/Entypo';
+import Menubar from '../components/MenuBar'
 
 import { Database, Auth } from '../config'
 
@@ -45,37 +44,13 @@ export default class ChatList extends Component {
             </Body>
         </ListItem>
     )
-    _menu = null;
-
-    setMenuRef = ref => {
-        this._menu = ref;
-    };
-
-    del = async () => {
-        const userToken = await AsyncStorage.getItem('userid')
-        console.warn(userToken)
-
-        Database.ref('/user/' + userToken).update({ status: "Offline" })
-        Auth.signOut().then(() => {
-            Alert.alert(
-                'Logout',
-                'Logout success', [
-                    { text: 'OK', onPress: () => this.props.navigation.navigate('Auth') }
-                ]
-            )
-        }
-        )
-    }
-
-    showMenu = () => {
-        this._menu.show();
-    };
 
 
     render() {
         console.log(Auth);
         return (
             <Container>
+                <Image source={require('../assets/bottom.png')} resizeMode="stretch" style={styles.imgBackground} />
                 <Header style={{ backgroundColor: '#05A0E4' }}>
                     <Body>
                         <Title style={{ left: 20 }}>Galecok</Title>
@@ -84,6 +59,7 @@ export default class ChatList extends Component {
                 <Content>
 
                     <StatusBar backgroundColor="#05A0E4" barStyle="light-content" />
+
 
                     {
                         this.state.refreshing == true ?
@@ -101,16 +77,18 @@ export default class ChatList extends Component {
                     }
 
                 </Content>
-                <View style={{ flex: 1, bottom: 365, left: 350 }}>
-                    <Menu
-                        ref={this.setMenuRef}
-                        button={<Text onPress={this.showMenu}><Entypo name='menu' size={25} color={'white'} /></Text>}
-                    >
-                        <MenuItem onPress={() => this.props.navigation.navigate('Profile')}>Profile</MenuItem>
-                        <MenuItem onPress={this.del}>Logout</MenuItem>
-                    </Menu>
-                </View>
+                <Menubar />
             </Container>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    imgBackground: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        opacity: 1
+    }
+
+})

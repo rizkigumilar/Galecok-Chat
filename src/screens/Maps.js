@@ -70,15 +70,12 @@ export default class Home extends Component {
                         showsIndoorLevelPicker={true}
                         showsUserLocation={true}
                         zoomControlEnabled={true}
+                        showsCompass={true}
                         showsTraffic={true}
-                        style={{ flex: 1, height: 650, width: 400 }}
+                        showsBuildings={true}
+                        showsScale={true}
+                        style={styles.map}
                         region={this.state.mapRegion}
-                        initialRegion={{
-                            latitude: -7.7586432,
-                            longitude: 110.3781322,
-                            latitudeDelta: 0.0022,
-                            longitudeDelta: 0.0021,
-                        }}
                     >
 
                         {this.state.users.map((item) => {
@@ -86,14 +83,19 @@ export default class Home extends Component {
                             return (<Marker
                                 draggable
                                 coordinate={{
-                                    latitude: item.latitude,
-                                    longitude: item.longitude
+                                    latitude: item.latitude || 0,
+                                    longitude: item.longitude || 0
                                 }}
                                 title={item.name}
-                                description={`${item.latitude} / ${item.longitude}`}
-                            ><Image
-                                    source={{ uri: item.photo }}
-                                    style={{ width: 40, height: 40, borderRadius: 100 / 2 }} /></Marker>)
+                                description={`${item.email}`}
+                            >
+                                <View>
+                                    <Icon name='pin' type='Ionicons' style={{ color: 'steelblue', fontSize: 50 }} />
+                                    <Image
+                                        source={{ uri: item.photo }}
+                                        style={{ width: 40, height: 40, borderRadius: 100 / 2 }} />
+                                </View>
+                            </Marker>)
 
                         })}
                     </MapView>
@@ -110,4 +112,13 @@ export default class Home extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    map: {
+        flex: 1
+    }
+})
 

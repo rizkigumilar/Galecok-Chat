@@ -12,9 +12,9 @@ import Maps from '../screens/Maps';
 import Login from '../screens/Login';
 import Register from '../screens/Register'
 import AuthLoading from '../screens/Splash';
-import MenuBar from '../components/MenuBar';
 import ChatRoom from '../screens/ChatRoom';
 import Profile from '../screens/Profile'
+import EditProfile from '../screens/EditProfile'
 
 const HomeStack = createStackNavigator(
     {
@@ -31,7 +31,16 @@ const HomeStack = createStackNavigator(
             }
         },
         Profile: {
-            screen: Profile
+            screen: Profile,
+            navigationOptions: {
+                header: null
+            }
+        },
+        EditProfile: {
+            screen: EditProfile,
+            navigationOptions: {
+                header: null
+            }
         }
     },
     {
@@ -59,7 +68,7 @@ const MapsStack = createStackNavigator(
 
 const AppStack = createBottomTabNavigator(
     {
-        Home: { screen: HomeStack },
+        Chat: { screen: HomeStack },
         Maps: { screen: MapsStack },
     },
     {
@@ -68,10 +77,10 @@ const AppStack = createBottomTabNavigator(
                 const { routeName } = navigation.state;
                 let IconComponent = Ionicons;
                 let iconName;
-                if (routeName === 'Home') {
-                    iconName = `ios-home`;
+                if (routeName === 'Chat') {
+                    iconName = `ios-chatbubbles`;
                 } else if (routeName === 'Maps') {
-                    iconName = `md-map`;
+                    iconName = `ios-compass`;
                 }
                 return <IconComponent name={iconName} size={25} color={tintColor} />;
             },
