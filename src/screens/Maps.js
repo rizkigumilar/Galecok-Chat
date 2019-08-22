@@ -9,15 +9,29 @@ import GetLocation from 'react-native-get-location';
 
 export default class Home extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            mapRegion: null,
-            latitude: 0,
-            longitude: 0,
-            users: []
-        };
-        this.user()
+    state = {
+        initial: 'state',
+        mapRegion: null,
+        latitude: 0,
+        longitude: 0,
+        pengguna: []
+    };
+
+    componentDidMount = async () => {
+        await this.user()
+    }
+    user = async () => {
+        Database.ref('/user').once('value', (result) => {
+            let data = result.val();
+            if (data !== null) {
+                console.log(data)
+                let users = Object.values(data);
+                console.log(users)
+                this.setState({
+                    pengguna: users
+                })
+            }
+        });
     }
     getCurrentPosition() {
         GetLocation.getCurrentPosition({
@@ -42,24 +56,13 @@ export default class Home extends Component {
             })
             .catch(error => {
                 const { code, message } = error;
-                console.warn(code, message);
             })
     }
 
-    user = async () => {
-        Database.ref('/user').once('value', (result) => {
-            let data = result.val();
-            if (data !== null) {
-                let users = Object.values(data);
-                this.setState({
-                    users
-                })
-            }
-        });
-    }
+
 
     render() {
-        console.log('data user bro', this.state.users)
+        console.log('data user bro', this.state.pengguna)
         return (
             <ScrollView>
                 <View>
@@ -72,13 +75,17 @@ export default class Home extends Component {
                         zoomControlEnabled={true}
                         showsCompass={true}
                         showsTraffic={true}
-                        showsBuildings={true}
-                        showsScale={true}
-                        style={styles.map}
+                        style={{ flex: 1, height: 650, width: 400 }}
                         region={this.state.mapRegion}
+                        initialRegion={{
+                            latitude: -7.7586432,
+                            longitude: 110.3781322,
+                            latitudeDelta: 0.0022,
+                            longitudeDelta: 0.0021,
+                        }}
                     >
 
-                        {this.state.users.map((item) => {
+                        {this.state.pengguna.map((item) => {
                             console.warn(item)
                             return (<Marker
                                 draggable
@@ -86,14 +93,19 @@ export default class Home extends Component {
                                     latitude: item.latitude || 0,
                                     longitude: item.longitude || 0
                                 }}
-                                title={item.name}
-                                description={`${item.email}`}
+                                onPress={() => {
+                                    this.props.navigation.navigate('FriendProfile', {
+                                        name: item.name,
+                                        photo: item.photo,
+                                        email: item.email
+                                    })
+                                }}
                             >
                                 <View>
-                                    <Icon name='pin' type='Ionicons' style={{ color: 'steelblue', fontSize: 50 }} />
                                     <Image
                                         source={{ uri: item.photo }}
                                         style={{ width: 40, height: 40, borderRadius: 100 / 2 }} />
+                                    <Text>{item.name}</Text>
                                 </View>
                             </Marker>)
 

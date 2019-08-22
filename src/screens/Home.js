@@ -32,14 +32,14 @@ export default class ChatList extends Component {
     }
 
     _renderItem = ({ item }) => (
-        <ListItem avatar onPress={() => this.props.navigation.navigate('Chat', {
+        <ListItem avatar onPress={() => this.props.navigation.navigate('ChatRoom', {
             id: item.id, foto: item.photo, name: item.name, status: item.status
         })}>
             <Left>
                 <Thumbnail source={{ uri: item.photo }} />
             </Left>
             <Body style={{ marginLeft: 7 }}>
-                <Text numberOfLines={1} style={{ fontWeight: 'bold' }}>{item.name}</Text>
+                <Text numberOfLines={1} style={{ fontWeight: 'bold' }} >{item.name}</Text>
                 <Text note numberOfLines={1}>{item.status}</Text>
             </Body>
         </ListItem>
@@ -47,7 +47,7 @@ export default class ChatList extends Component {
 
 
     render() {
-        console.log(Auth);
+        // console.log(Auth);
         return (
             <Container>
                 <Image source={require('../assets/bottom.png')} resizeMode="stretch" style={styles.imgBackground} />

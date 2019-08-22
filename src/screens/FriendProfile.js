@@ -1,69 +1,56 @@
 import React, { Component } from 'react'
-import { View, Image, StatusBar, StyleSheet, AsyncStorage } from 'react-native'
+import { View, Image, StatusBar, StyleSheet } from 'react-native'
 import { Thumbnail, Button, Icon, Text } from 'native-base'
 
-export class Profile extends Component {
+export class ProfileFriends extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            photo: ''
+            photo: props.navigation.getParam('photo'),
+            foto: props.navigation.getParam('foto'),
+            name: props.navigation.getParam('name'),
+            email: props.navigation.getParam('email')
         }
     }
-
-    componentDidMount() {
-        AsyncStorage.getItem('name', (err, result) => {
-            if (result) {
-                this.setState({ name: result })
-            }
-        })
-
-        AsyncStorage.getItem('photo', (err, result) => {
-            if (result) {
-                this.setState({ photo: result })
-            }
-        })
-    }
     render() {
-
         return (
             <View style={styles.root}>
                 <StatusBar translucent={true} backgroundColor="transparent" />
                 <Image source={require('../assets/background.jpg')} resizeMode="stretch" style={styles.imgBackground} />
 
-                <Thumbnail source={{ uri: this.props.navigation.getParam('photo') }} style={styles.avatar} />
+                <Thumbnail source={{ uri: this.state.foto || this.state.photo }} style={styles.avatar} />
                 <View style={styles.profileData}>
-                    <Text style={styles.txtFullname}>{this.props.navigation.getParam('name')}</Text>
-                    <Text style={styles.txtEmail}>{this.props.navigation.getParam('email')}</Text>
+                    <Text style={styles.txtFullname}>{this.state.name}</Text>
+                    <Text style={styles.txtData}>{this.state.email}</Text>
                 </View>
-                <Button style={styles.btnEdit} onPress={() => this.props.navigation.navigate('EditProfile', {
-
-                })}>
-                    <Text>Edit Profile</Text><Icon name="ios-create" type="Ionicons" style={styles.iconStyle} />
+                <Button style={styles.btnLike} onPress={() => this.props.navigation.goBack()}>
+                    <Text style={{ textAlign: 'center', width: '100%' }}>Back</Text>
                 </Button>
-                <Button style={styles.btnBack} onPress={() => this.props.navigation.navigate('Home')}>
-                    <Text>back</Text>
+                <Button style={styles.btnChat} onPress={() => this.props.navigation.navigate('ChatRoom')}>
+                    <Text style={{ textAlign: 'center', width: '100%' }}>Chat</Text>
                 </Button>
             </View>
         )
     }
 }
 
-export default Profile
+export default ProfileFriends
 
 const styles = StyleSheet.create({
     iconStyle: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 15,
     },
-    btnEdit: {
-        backgroundColor: '#05A0E4'
-    },
-    btnBack: {
+    btnLike: {
         backgroundColor: '#05A0E4',
-        top: 10
+        width: 160
     },
-    txtEmail: {
+    btnChat: {
+        backgroundColor: '#05A0E4',
+        top: 10,
+        width: 160
+    },
+    txtData: {
         color: '#05A0E4',
         fontWeight: 'bold',
         textAlign: 'center',
@@ -88,7 +75,7 @@ const styles = StyleSheet.create({
     root: {
         flex: 1,
         backgroundColor: 'black',
-        marginBottom: 0,
+        margin: 0,
         alignItems: 'center',
         justifyContent: 'center'
     },

@@ -47,21 +47,6 @@ class MenuBar extends Component {
         this._menu = ref;
     };
 
-    del = async () => {
-        const userToken = await AsyncStorage.getItem('userid')
-        console.warn(userToken)
-
-        Database.ref('/user/' + userToken).update({ status: "Offline" })
-        Auth.signOut().then(() => {
-            Alert.alert(
-                'Logout',
-                'Logout success', [
-                    { text: 'OK', onPress: () => this.props.navigation.navigate('Auth') }
-                ]
-            )
-        }
-        )
-    }
 
     showMenu = () => {
         this._menu.show();
@@ -70,17 +55,16 @@ class MenuBar extends Component {
     render() {
 
         return (
-            <View style={{ flex: 1, bottom: 365, left: 350 }}>
+            <View style={{ flex: 1, marginLeft: 50, bottom: 10 }}>
                 <Menu
                     ref={this.setMenuRef}
                     button={<Text onPress={this.showMenu}><Entypo name='menu' size={25} color={'white'} /></Text>}
                 >
-                    <MenuItem onPress={() => this.props.navigation.navigate('Profile', {
+                    <MenuItem onPress={() => this.props.navigation.navigate('FriendProfile', {
                         name: this.state.name,
                         email: this.state.email,
                         photo: this.state.photo
                     })}>Profile</MenuItem>
-                    <MenuItem onPress={this.del}>Logout</MenuItem>
                 </Menu>
             </View>
         );

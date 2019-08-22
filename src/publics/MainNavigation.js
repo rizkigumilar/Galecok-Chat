@@ -13,8 +13,10 @@ import Login from '../screens/Login';
 import Register from '../screens/Register'
 import AuthLoading from '../screens/Splash';
 import ChatRoom from '../screens/ChatRoom';
+import ChatRoomMap from '../screens/ChatRoomMap';
 import Profile from '../screens/Profile'
 import EditProfile from '../screens/EditProfile'
+import FriendProfile from '../screens/FriendProfile';
 
 const HomeStack = createStackNavigator(
     {
@@ -24,7 +26,7 @@ const HomeStack = createStackNavigator(
                 header: null
             }
         },
-        Chat: {
+        ChatRoom: {
             screen: ChatRoom,
             navigationOptions: {
                 header: null
@@ -32,6 +34,12 @@ const HomeStack = createStackNavigator(
         },
         Profile: {
             screen: Profile,
+            navigationOptions: {
+                header: null
+            }
+        },
+        FriendProfile: {
+            screen: FriendProfile,
             navigationOptions: {
                 header: null
             }
@@ -45,7 +53,7 @@ const HomeStack = createStackNavigator(
     },
     {
         navigationOptions: ({ navigation }) => ({
-            tabBarVisible: navigation.state.routes[navigation.state.index].routeName === 'Chat' ? false : true
+            tabBarVisible: navigation.state.routes[navigation.state.index].routeName === 'ChatRoom' ? false : true
         }),
     }
 );
@@ -53,6 +61,18 @@ const HomeStack = createStackNavigator(
 const MapsStack = createStackNavigator(
     {
         Maps: { screen: Maps },
+        FriendProfile: {
+            screen: FriendProfile,
+            navigationOptions: {
+                header: null
+            }
+        },
+        ChatRoom: {
+            screen: ChatRoom,
+            navigationOptions: {
+                header: null
+            }
+        }
     },
     {
         defaultNavigationOptions: {
