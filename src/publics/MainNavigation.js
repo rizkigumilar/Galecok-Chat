@@ -13,7 +13,6 @@ import Login from '../screens/Login';
 import Register from '../screens/Register'
 import AuthLoading from '../screens/Splash';
 import ChatRoom from '../screens/ChatRoom';
-import ChatRoomMap from '../screens/ChatRoomMap';
 import Profile from '../screens/Profile'
 import EditProfile from '../screens/EditProfile'
 import FriendProfile from '../screens/FriendProfile';
@@ -67,12 +66,6 @@ const MapsStack = createStackNavigator(
                 header: null
             }
         },
-        ChatRoom: {
-            screen: ChatRoom,
-            navigationOptions: {
-                header: null
-            }
-        }
     },
     {
         defaultNavigationOptions: {

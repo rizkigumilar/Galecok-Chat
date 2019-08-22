@@ -6,10 +6,13 @@ export class ProfileFriends extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            id: props.navigation.getParam('id'),
             photo: props.navigation.getParam('photo'),
             foto: props.navigation.getParam('foto'),
             name: props.navigation.getParam('name'),
-            email: props.navigation.getParam('email')
+            email: props.navigation.getParam('email'),
+            lat: props.navigation.getParam('lat'),
+            long: props.navigation.getParam('long'),
         }
     }
     render() {
@@ -25,9 +28,6 @@ export class ProfileFriends extends Component {
                 </View>
                 <Button style={styles.btnLike} onPress={() => this.props.navigation.goBack()}>
                     <Text style={{ textAlign: 'center', width: '100%' }}>Back</Text>
-                </Button>
-                <Button style={styles.btnChat} onPress={() => this.props.navigation.navigate('ChatRoom')}>
-                    <Text style={{ textAlign: 'center', width: '100%' }}>Chat</Text>
                 </Button>
             </View>
         )

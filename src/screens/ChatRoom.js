@@ -20,6 +20,8 @@ export default class ChatRoom extends Component {
             foto: props.navigation.getParam('foto'),
             name: props.navigation.getParam('name'),
             status: props.navigation.getParam('status'),
+            lat: props.navigation.getParam('lat'),
+            long: props.navigation.getParam('long'),
         };
 
 
@@ -117,7 +119,10 @@ export default class ChatRoom extends Component {
                                 <MenuItem onPress={() => this.props.navigation.navigate('FriendProfile', {
                                     name: this.state.name,
                                     email: this.state.email,
-                                    foto: this.state.foto
+                                    foto: this.state.foto,
+                                    id: this.state.idPerson,
+                                    lat: this.state.lat,
+                                    long: this.state.long
                                 })}>Profile</MenuItem>
                             </Menu>
                         </View>

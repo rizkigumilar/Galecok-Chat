@@ -5,6 +5,7 @@ import Menubar from '../components/MenuBar'
 
 import { Database, Auth } from '../config'
 
+
 export default class ChatList extends Component {
     state = {
         users: [],
@@ -33,7 +34,7 @@ export default class ChatList extends Component {
 
     _renderItem = ({ item }) => (
         <ListItem avatar onPress={() => this.props.navigation.navigate('ChatRoom', {
-            id: item.id, foto: item.photo, name: item.name, status: item.status
+            id: item.id, foto: item.photo, name: item.name, status: item.status, lat: item.latitude, long: item.logitude
         })}>
             <Left>
                 <Thumbnail source={{ uri: item.photo }} />
@@ -47,7 +48,6 @@ export default class ChatList extends Component {
 
 
     render() {
-        // console.log(Auth);
         return (
             <Container>
                 <Image source={require('../assets/bottom.png')} resizeMode="stretch" style={styles.imgBackground} />
