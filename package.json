@@ -9,7 +9,7 @@
   "dependencies": {
     "firebase": "^6.4.0",
     "jetifier": "^1.6.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "native-base": "^2.13.5",
     "react": "16.8.6",
     "react-native": "0.60.5",
